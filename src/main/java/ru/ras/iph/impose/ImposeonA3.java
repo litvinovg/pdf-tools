@@ -34,7 +34,11 @@ public class ImposeonA3 {
 			System.exit(1);
     	}
     	FileInputStream is = new FileInputStream(inputFile);
-    	File outputFile = new File( inputFile.getParent() + File.separator + "A3_" + inputFile.getName());
+    	String parentFolder = "";
+    	if (inputFile.getParent() != null){
+    		parentFolder = inputFile.getParent() + File.separator;
+    	}
+    	File outputFile = new File( parentFolder  + "A3_" + inputFile.getName());
     	FileOutputStream os = new FileOutputStream(outputFile);
     	
         PdfReader reader = new PdfReader(is);
