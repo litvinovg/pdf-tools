@@ -1,0 +1,47 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ru.ras.iph</groupId>
+  <artifactId>imposeonA3</artifactId>
+  <version>0.1</version>
+  <name>imposeonA3</name>
+  <build>
+   <plugins>
+    <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+        <archive>
+          <manifest>
+            <addClasspath>true</addClasspath>
+            <mainClass>ru.ras.iph.impose.ImposeonA3</mainClass>
+          </manifest>
+        </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+      </plugin>
+  </plugins>
+</build>
+  <repositories>
+    <repository>
+        <id>maven-restlet</id>
+        <name>Public online Restlet repository</name>
+        <url>http://maven.restlet.org</url>
+    </repository>
+</repositories>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.itextpdf</groupId>
+  		<artifactId>itextpdf</artifactId>
+  		<version>5.5.10</version>
+  	</dependency>
+  </dependencies>
+</project>
