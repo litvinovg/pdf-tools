@@ -307,19 +307,23 @@ public class ImposeonA3 {
      
  }
  private static void drawRectangle2(PdfContentByte canvas){
-	 canvas.moveTo(782,587);
-     canvas.lineTo(782,604);
-     canvas.lineTo(807,604);
-     canvas.lineTo(807,587);
+	 int startX = 782;
+	 int startY = 587;
+	 canvas.moveTo(startX,startY);
+     canvas.lineTo(startX,startY+17);
+     canvas.lineTo(startX+25,startY+17);
+     canvas.lineTo(startX+25,startY);
      canvas.closePath();
      canvas.fillStroke();
      canvas.stroke();
  }
  private static void drawRectangle4(PdfContentByte canvas){
-	 canvas.moveTo(413,60);
-     canvas.lineTo(430,60);
-     canvas.lineTo(430,35);
-     canvas.lineTo(413,35);
+	 int startX = 413;
+	 int startY = 590;
+	 canvas.moveTo(startX,startY);
+     canvas.lineTo(startX+17,startY);
+     canvas.lineTo(startX+17,startY-25);
+     canvas.lineTo(startX,startY-25);
      canvas.closePath();
      canvas.fillStroke();
      canvas.stroke();
@@ -328,8 +332,8 @@ public class ImposeonA3 {
 	private static void drawSerifs4(PdfContentByte canvas, int layout) {
 		float xl = 413f;
 		float xr = 430f;
-		int startY = 590;
-		int endY = 90;
+		int startY = 555;
+		int endY = 50;
 		int spacing = 28;
 		float inc = 2.8f;
 		int countSpaces = Math.abs(startY - endY) / spacing + 1;
@@ -346,18 +350,19 @@ public class ImposeonA3 {
 	private static void drawSerifs2(PdfContentByte canvas, int layout) {
 		float yt = 587f;
 		float yb = 604f;
-		int startX = 40;
-		int endX = 750;
+		int startX = 772;
+		int endX = 50;
 		int spacing = 28;
 		float inc = 2.8f;
 		int countSpaces = Math.abs(startX - endX) / spacing + 1;
 		int position = (layout / 2) % countSpaces;
 		int countSerifs = layout / (2 * countSpaces);
 		for (int i = 0; i <= countSerifs; i++) {
-			canvas.moveTo(startX + position * spacing + i * inc, yt);
-			canvas.lineTo(startX + position * spacing + i * inc, yb);
+			canvas.moveTo(startX - position * spacing - i * inc, yt);
+			canvas.lineTo(startX - position * spacing - i * inc, yb);
 		}
 		canvas.stroke();
 	}
+	
 }
 
