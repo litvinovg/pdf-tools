@@ -25,11 +25,16 @@ public class ImposeonA3 {
     public static void main(String[] args) throws IOException, DocumentException {
     	if (args.length != 1) {
 			System.err.println("Usage: java -jar impose.jar input_file.pdf");
-			System.exit(1);
-		}
-    	String inputFileName = args[0];
-    	File inputFile = new File(inputFileName);
-    	if (!inputFile.exists()){
+			}
+    	File inputFile = null;
+    	if (args.length == 1){
+    		String inputFileName = args[0];
+      	inputFile = new File(inputFileName);	
+    	} else {
+    		inputFile = FileChooser.chooseFile();
+    	}
+    	
+    	if (inputFile == null || !inputFile.exists()){
     		System.err.println("Input file not found!");
 			System.exit(1);
     	}
@@ -290,11 +295,17 @@ public class ImposeonA3 {
         document.close();
         reader.close();
     }
- private static void drawSerifs(PdfContentByte canvas) {
+ /**
+ * @param canvas
+ */
+private static void drawSerifs(PdfContentByte canvas) {
 
 	 canvas.stroke();
  }
- private static void drawFoldLines(PdfContentByte canvas) {
+ /**
+ * @param canvas
+ */
+private static void drawFoldLines(PdfContentByte canvas) {
 	 canvas.moveTo(3,595.5);
      canvas.lineTo(30,595.5);
      canvas.moveTo(812,595.5);
@@ -306,7 +317,10 @@ public class ImposeonA3 {
      canvas.stroke();
      
  }
- private static void drawRectangle2(PdfContentByte canvas){
+ /**
+ * @param canvas
+ */
+private static void drawRectangle2(PdfContentByte canvas){
 	 int startX = 782;
 	 int startY = 587;
 	 canvas.moveTo(startX,startY);
@@ -317,7 +331,10 @@ public class ImposeonA3 {
      canvas.fillStroke();
      canvas.stroke();
  }
- private static void drawRectangle4(PdfContentByte canvas){
+ /**
+ * @param canvas
+ */
+private static void drawRectangle4(PdfContentByte canvas){
 	 int startX = 413;
 	 int startY = 590;
 	 canvas.moveTo(startX,startY);
@@ -329,6 +346,10 @@ public class ImposeonA3 {
      canvas.stroke();
  }
 
+	/**
+	 * @param canvas
+	 * @param layout
+	 */
 	private static void drawSerifs4(PdfContentByte canvas, int layout) {
 		float xl = 413f;
 		float xr = 430f;
@@ -347,6 +368,10 @@ public class ImposeonA3 {
 
 	}
 
+	/**
+	 * @param canvas
+	 * @param layout
+	 */
 	private static void drawSerifs2(PdfContentByte canvas, int layout) {
 		float yt = 587f;
 		float yb = 604f;
