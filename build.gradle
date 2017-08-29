@@ -1,0 +1,19 @@
+apply plugin: 'java'
+repositories{
+  mavenCentral()
+}
+sourceCompatibility = 1.6
+jar {
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    manifest {
+        attributes("Implementation-Title": "imposeOnA3",
+                   "Implementation-Version": "0.2",
+                   "Main-Class" : "ru.ras.iph.impose.ImposeonA3")
+    }
+}
+dependencies{
+compile 'com.itextpdf:itextpdf:5.5.12'
+}
