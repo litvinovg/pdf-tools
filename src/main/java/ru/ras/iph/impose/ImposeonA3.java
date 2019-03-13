@@ -61,10 +61,17 @@ public class ImposeonA3 {
         for (int i = 1; i <= reader.getNumberOfPages(); i = i + 8) {
         	page = writer.getImportedPage(reader, i);
         	
-        	
-			if ((page.getWidth() <= PageSize.A5.getWidth() && page.getHeight() <= PageSize.A5.getHeight())||(page.getHeight() <= PageSize.A5.getWidth() && page.getWidth() <= PageSize.A5.getHeight())) {
-				
-				
+        	int curHeight = Math.round(page.getHeight());
+        	int curWidth = Math.round(page.getWidth());
+        	int a5Height = Math.round(PageSize.A5.getHeight());
+        	int a5Width = Math.round(PageSize.A5.getWidth());
+        	System.out.println("Ширина страницы " + curWidth);
+  				System.out.println("Высота страницы " + curHeight);
+  				System.out.println("Ширина страницы А5 " + a5Width);
+  				System.out.println("Высота страницы A5 " + a5Height);
+  				
+			if ((curWidth <= a5Width && curHeight <= a5Height)||(curHeight <= a5Width && curWidth <= a5Height)) {
+			
 				float deltaWLayout = 1f;
 				float deltaHLayout = 1f;
 				float deltaW = 1f;
