@@ -339,7 +339,7 @@ private static void drawFoldLines(PdfContentByte canvas) {
  * @param canvas
  */
 private static void drawRectangle2(PdfContentByte canvas){
-	 int startX = 782;
+	 int startX = 720;
 	 int startY = 587;
 	 canvas.moveTo(startX,startY);
      canvas.lineTo(startX,startY+17);
@@ -349,12 +349,32 @@ private static void drawRectangle2(PdfContentByte canvas){
      canvas.fillStroke();
      canvas.stroke();
  }
+/**
+ * @param canvas
+ * @param layout
+ */
+private static void drawSerifs2(PdfContentByte canvas, int layout) {
+	float yt = 587f;
+	float yb = 604f;
+	int startX = 710;
+	int endX = 50;
+	int spacing = 28;
+	float inc = 2.8f;
+	int countSpaces = Math.abs(startX - endX) / spacing + 1;
+	int position = (layout / 2) % countSpaces;
+	int countSerifs = layout / (2 * countSpaces);
+	for (int i = 0; i <= countSerifs; i++) {
+		canvas.moveTo(startX - position * spacing - i * inc, yt);
+		canvas.lineTo(startX - position * spacing - i * inc, yb);
+	}
+	canvas.stroke();
+}
  /**
  * @param canvas
  */
 private static void drawRectangle4(PdfContentByte canvas){
 	 int startX = 413;
-	 int startY = 590;
+	 int startY = 545;
 	 canvas.moveTo(startX,startY);
      canvas.lineTo(startX+17,startY);
      canvas.lineTo(startX+17,startY-25);
@@ -371,7 +391,7 @@ private static void drawRectangle4(PdfContentByte canvas){
 	private static void drawSerifs4(PdfContentByte canvas, int layout) {
 		float xl = 413f;
 		float xr = 430f;
-		int startY = 555;
+		int startY = 500;
 		int endY = 50;
 		int spacing = 28;
 		float inc = 2.8f;
@@ -386,26 +406,7 @@ private static void drawRectangle4(PdfContentByte canvas){
 
 	}
 
-	/**
-	 * @param canvas
-	 * @param layout
-	 */
-	private static void drawSerifs2(PdfContentByte canvas, int layout) {
-		float yt = 587f;
-		float yb = 604f;
-		int startX = 772;
-		int endX = 50;
-		int spacing = 28;
-		float inc = 2.8f;
-		int countSpaces = Math.abs(startX - endX) / spacing + 1;
-		int position = (layout / 2) % countSpaces;
-		int countSerifs = layout / (2 * countSpaces);
-		for (int i = 0; i <= countSerifs; i++) {
-			canvas.moveTo(startX - position * spacing - i * inc, yt);
-			canvas.lineTo(startX - position * spacing - i * inc, yb);
-		}
-		canvas.stroke();
-	}
+
 	
 }
 
