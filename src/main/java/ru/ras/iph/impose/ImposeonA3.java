@@ -19,6 +19,7 @@ public class ImposeonA3 {
 	static int a5Width = Math.round(PageSize.A5.getWidth());
 	static int a4Height = Math.round(PageSize.A4.getHeight());
 	static int a4Width = Math.round(PageSize.A4.getWidth());
+	static float lineThickness = 2f;
 	
     /**
      * Main method.
@@ -364,6 +365,7 @@ private static void drawSerifs2(PdfContentByte canvas, int layout) {
 	int position = (layout / 2) % countSpaces;
 	int countSerifs = layout / (2 * countSpaces);
 	for (int i = 0; i <= countSerifs; i++) {
+		canvas.setLineWidth(lineThickness);
 		canvas.moveTo(startX - position * spacing - i * inc, yt);
 		canvas.lineTo(startX - position * spacing - i * inc, yb);
 	}
@@ -399,6 +401,7 @@ private static void drawRectangle4(PdfContentByte canvas){
 		int position = (layout / 2) % countSpaces;
 		int countSerifs = layout / (2 * countSpaces);
 		for (int i = 0; i <= countSerifs; i++) {
+			canvas.setLineWidth(lineThickness);
 			canvas.moveTo(xl, startY - position * spacing - i * inc);
 			canvas.lineTo(xr, startY - position * spacing - i * inc);
 		}
