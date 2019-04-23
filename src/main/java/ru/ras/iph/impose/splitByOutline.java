@@ -102,20 +102,25 @@ public class splitByOutline {
        // PdfWriter writer = PdfWriter.getInstance(document, os);
         PdfCopy writer = new PdfCopy(document, os);
    
-            
+        int pageCount = 0;
         document.open();
         for (int i = 1; i <= reader.getNumberOfPages(); i++) {
         	if (pageNums.contains(i)) {
-        		//close current document
-        		document.close();
-        		outputFile = new File( parentFolder  + i + "_" + inputFile.getName());
-        		document = new Document(reader.getPageSizeWithRotation(i));
-           		os = new FileOutputStream(outputFile);
-           		writer.close();
-        		writer =  new PdfCopy(document, os);
-        		document.open();
+        		if (pageCount != 0) {
+        			pageCount = 0;
+        			//close current document
+            		document.close();
+            		outputFile = new File( parentFolder  + i + "_" + inputFile.getName());
+            		document = new Document(reader.getPageSizeWithRotation(i));
+               		os = new FileOutputStream(outputFile);
+               		writer.close();
+            		writer =  new PdfCopy(document, os);
+            		document.open();	
+        		}
+        		
         	}
             PdfImportedPage page1 = writer.getImportedPage(reader, i);
+            pageCount++;
             writer.addPage(page1);
         }
         document.close();
