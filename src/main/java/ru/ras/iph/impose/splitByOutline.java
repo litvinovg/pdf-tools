@@ -24,12 +24,7 @@ import com.itextpdf.text.pdf.SimpleBookmark;
 
 public class splitByOutline {
 	
-	static int a5Height = Math.round(PageSize.A5.getHeight());
-	static int a5Width = Math.round(PageSize.A5.getWidth());
-	static int a4Height = Math.round(PageSize.A4.getHeight());
-	static int a4Width = Math.round(PageSize.A4.getWidth());
-	static float lineThickness = 2f;
-	
+
     /**
      * Main method.
      * @param    args    no arguments needed
