@@ -88,39 +88,22 @@ public class ImposeonA3 {
 		float HeightA3 = document.getPageSize().getHeight();
 		float WidthA3 = document.getPageSize().getWidth();
 
-		float deltaWLayout = 1f;
-		float deltaHLayout = 1f;
-		float deltaW = 1f;
-		float deltaH = 1f;
-		if (page.getHeight() < page.getWidth()) {
-			deltaW = (WidthA3 - page.getWidth()) / 2;
-			deltaH = HeightA3 / 2 - page.getHeight();
-			deltaWLayout = (WidthA3 - page.getWidth()) / 2;
-			deltaHLayout = HeightA3 / 2 - page.getHeight();
-
-		} else {
-			deltaW = (WidthA3 - page.getHeight()) / 2;
-			deltaH = HeightA3 / 2 - page.getWidth();
-			deltaWLayout = (WidthA3 - page.getHeight()) / 2;
-			deltaHLayout = HeightA3 / 2 - page.getWidth();
-		}
-
 		drawRectangle2(canvas);
 		drawFoldLines(canvas);
 		drawSerifs2(canvas, layout);
 		// 1 Page
 		if (inputIsAlbum(page)) {
-			canvas.addTemplate(page, 1f, 0, 0, 1f, deltaWLayout, deltaHLayout);
+			canvas.addTemplate(page, 1f, 0, 0, 1f, WidthA3/2 - page.getWidth()/2, HeightA3/2 - page.getHeight());
 		} else {
-			canvas.addTemplate(page, 0, -1f, 1f, 0, deltaW, HeightA3 / 2);
+			canvas.addTemplate(page, 0, -1f, 1f, 0, WidthA3/2 - page.getHeight()/2, HeightA3/2);
 		}
 		// 4 Page
 		if (i + 3 <= reader.getNumberOfPages()) {
 			page = writer.getImportedPage(reader, i + 3);
 			if (inputIsAlbum(page)) {
-				canvas.addTemplate(page, -1f, 0, 0, -1f, WidthA3 - deltaWLayout, HeightA3 - deltaHLayout);
+				canvas.addTemplate(page, -1f, 0, 0, -1f, WidthA3/2 + page.getWidth()/2, HeightA3/2 + page.getHeight());
 			} else {
-				canvas.addTemplate(page, 0, -1f, 1f, 0, deltaW, HeightA3 - deltaH);
+				canvas.addTemplate(page, 0, -1f, 1f, 0, WidthA3/2 - page.getHeight()/2, HeightA3/2 + page.getWidth());
 			}
 		}
 		// Second layout
@@ -134,17 +117,17 @@ public class ImposeonA3 {
 			if (i + 2 <= reader.getNumberOfPages()) {
 				page = writer.getImportedPage(reader, i + 2);
 				if (inputIsAlbum(page)) {
-					canvas.addTemplate(page, 1f, 0, 0, 1f, deltaWLayout, deltaHLayout);
+					canvas.addTemplate(page, 1f, 0, 0, 1f, WidthA3/2 - page.getWidth()/2, HeightA3/2 - page.getHeight());
 				} else {
-					canvas.addTemplate(page, 0, -1f, 1f, 0, deltaW, HeightA3 / 2);
+					canvas.addTemplate(page, 0, -1f, 1f, 0, WidthA3/2 - page.getHeight()/2, HeightA3/2);
 				}
 			}
 			// 2 Page
 			page = writer.getImportedPage(reader, i + 1);
 			if (inputIsAlbum(page)) {
-				canvas.addTemplate(page, -1f, 0, 0, -1f, WidthA3 - deltaWLayout, HeightA3 - deltaHLayout);
+				canvas.addTemplate(page, -1f, 0, 0, -1f, WidthA3/2 + page.getWidth()/2, HeightA3/2 + page.getHeight());
 			} else {
-				canvas.addTemplate(page, 0, -1f, 1f, 0, deltaW, HeightA3 - deltaH);
+				canvas.addTemplate(page, 0, -1f, 1f, 0, WidthA3/2 - page.getHeight()/2, HeightA3/2 + page.getWidth());
 			}
 		}
 		// Third layout
@@ -159,17 +142,17 @@ public class ImposeonA3 {
 			// 5 Page
 			page = writer.getImportedPage(reader, i + 4);
 			if (inputIsAlbum(page)) {
-				canvas.addTemplate(page, 1f, 0, 0, 1f, deltaWLayout, deltaHLayout);
+				canvas.addTemplate(page, 1f, 0, 0, 1f, WidthA3/2 - page.getWidth()/2, HeightA3/2 - page.getHeight());
 			} else {
-				canvas.addTemplate(page, 0, -1f, 1f, 0, deltaW, HeightA3 / 2);
+				canvas.addTemplate(page, 0, -1f, 1f, 0, WidthA3/2 - page.getHeight()/2, HeightA3/2);
 			}
 			// 8 page
 			if (i + 7 <= reader.getNumberOfPages()) {
 				page = writer.getImportedPage(reader, i + 7);
 				if (inputIsAlbum(page)) {
-					canvas.addTemplate(page, -1f, 0, 0, -1f, WidthA3 - deltaWLayout, HeightA3 - deltaHLayout);
+					canvas.addTemplate(page, -1f, 0, 0, -1f, WidthA3/2 + page.getWidth()/2, HeightA3/2 + page.getHeight());
 				} else {
-					canvas.addTemplate(page, 0, -1f, 1f, 0, deltaW, HeightA3 - deltaH);
+					canvas.addTemplate(page, 0, -1f, 1f, 0, WidthA3/2 - page.getHeight()/2, HeightA3/2 + page.getWidth());
 				}
 			}
 		}
@@ -184,17 +167,17 @@ public class ImposeonA3 {
 				// 3
 				page = writer.getImportedPage(reader, i + 6);
 				if (inputIsAlbum(page)) {
-					canvas.addTemplate(page, 1f, 0, 0, 1f, deltaWLayout, deltaHLayout);
+					canvas.addTemplate(page, 1f, 0, 0, 1f, WidthA3/2 - page.getWidth()/2, HeightA3/2 - page.getHeight());
 				} else {
-					canvas.addTemplate(page, 0, -1f, 1f, 0, deltaW, HeightA3 / 2);
+					canvas.addTemplate(page, 0, -1f, 1f, 0, WidthA3/2 - page.getHeight()/2, HeightA3/2);
 				}
 			}
 			// Page 6
 			page = writer.getImportedPage(reader, i + 5);
 			if (inputIsAlbum(page)) {
-				canvas.addTemplate(page, -1f, 0, 0, -1f, WidthA3 - deltaWLayout, HeightA3 - deltaHLayout);
+				canvas.addTemplate(page, -1f, 0, 0, -1f, WidthA3/2 + page.getWidth()/2, HeightA3/2 + page.getHeight());
 			} else {
-				canvas.addTemplate(page, 0, -1f, 1f, 0, deltaW, HeightA3 - deltaH);
+				canvas.addTemplate(page, 0, -1f, 1f, 0, WidthA3/2 - page.getHeight()/2, HeightA3/2 + page.getWidth());
 			}
 
 		}
