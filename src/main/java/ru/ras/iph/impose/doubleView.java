@@ -23,7 +23,7 @@ public class doubleView {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException, DocumentException {
-    	if (args.length != 1) {
+    	if (args.length != 2) {
 			System.err.println("Usage: java -jar double.jar input_file1.pdf input_file2.pdf");
 			}
     	File inputFile1 = null;
