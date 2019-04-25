@@ -92,11 +92,11 @@ public class ImposeonA3 {
 		drawFoldLines(canvas);
 		drawSerifs2(canvas, layout);
 		// 1 Page
-		leftA4(page, canvas, HeightA3, WidthA3);
+		rightA4(page, canvas, HeightA3, WidthA3);
 		// 4 Page
 		if (i + 3 <= reader.getNumberOfPages()) {
 			page = writer.getImportedPage(reader, i + 3);
-			rightA4(page, canvas, HeightA3, WidthA3);
+			leftA4(page, canvas, HeightA3, WidthA3);
 		}
 		// Second layout
 		// If there is at least one more page to place in new layout
@@ -108,11 +108,11 @@ public class ImposeonA3 {
 			// 3 Page
 			if (i + 2 <= reader.getNumberOfPages()) {
 				page = writer.getImportedPage(reader, i + 2);
-				leftA4(page, canvas, HeightA3, WidthA3);
+				rightA4(page, canvas, HeightA3, WidthA3);
 			}
 			// 2 Page
 			page = writer.getImportedPage(reader, i + 1);
-			rightA4(page, canvas, HeightA3, WidthA3);
+			leftA4(page, canvas, HeightA3, WidthA3);
 		}
 		// Third layout
 		// If there is at least one more page to place in new layout
@@ -125,11 +125,11 @@ public class ImposeonA3 {
 			drawSerifs2(canvas, layout);
 			// 5 Page
 			page = writer.getImportedPage(reader, i + 4);
-			leftA4(page, canvas, HeightA3, WidthA3);
+			rightA4(page, canvas, HeightA3, WidthA3);
 			// 8 page
 			if (i + 7 <= reader.getNumberOfPages()) {
 				page = writer.getImportedPage(reader, i + 7);
-				rightA4(page, canvas, HeightA3, WidthA3);
+				leftA4(page, canvas, HeightA3, WidthA3);
 			}
 		}
 		// Fourth layout
@@ -142,11 +142,11 @@ public class ImposeonA3 {
 			if (i + 6 <= reader.getNumberOfPages()) {
 				// 3
 				page = writer.getImportedPage(reader, i + 6);
-				leftA4(page, canvas, HeightA3, WidthA3);
+				rightA4(page, canvas, HeightA3, WidthA3);
 			}
 			// Page 6
 			page = writer.getImportedPage(reader, i + 5);
-			rightA4(page, canvas, HeightA3, WidthA3);
+			leftA4(page, canvas, HeightA3, WidthA3);
 
 		}
 		// New layout if any further pages exists
@@ -158,15 +158,15 @@ public class ImposeonA3 {
 		return layout;
 	}
 
-	private static void rightA4(PdfImportedPage page, PdfContentByte canvas, float HeightA3, float WidthA3) {
+	private static void leftA4(PdfImportedPage page, PdfContentByte canvas, float HeightA3, float WidthA3) {
 		if (inputIsAlbum(page)) {
-			canvas.addTemplate(page, -1f, 0, 0, -1f, WidthA3/2 + page.getWidth()/2, HeightA3/2 + page.getHeight());
+			canvas.addTemplate(page, 1f, 0, 0, 1f, WidthA3/2 - page.getWidth()/2, HeightA3/2);
 		} else {
 			canvas.addTemplate(page, 0, -1f, 1f, 0, WidthA3/2 - page.getHeight()/2, HeightA3/2 + page.getWidth());
 		}
 	}
 
-	private static void leftA4(PdfImportedPage page, PdfContentByte canvas, float HeightA3, float WidthA3) {
+	private static void rightA4(PdfImportedPage page, PdfContentByte canvas, float HeightA3, float WidthA3) {
 		if (inputIsAlbum(page)) {
 			canvas.addTemplate(page, 1f, 0, 0, 1f, WidthA3/2 - page.getWidth()/2, HeightA3/2 - page.getHeight());
 		} else {
