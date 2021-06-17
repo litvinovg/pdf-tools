@@ -40,7 +40,7 @@ public class splitByOutline {
     		String inputFileName = args[0];
       	inputFile = new File(inputFileName);	
     	} else {
-    		inputFile = FileChooser.chooseFile();
+    		inputFile = FileChooser.chooseFile("");
     	}
     	
     	if (inputFile == null || !inputFile.exists()){

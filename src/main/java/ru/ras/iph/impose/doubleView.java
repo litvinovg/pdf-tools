@@ -36,8 +36,8 @@ public class doubleView {
       	inputFile1 = new File(inputFileName1);	
       	inputFile2 = new File(inputFileName2);
     	} else {
-    		inputFile1 = FileChooser.chooseFile();
-    		inputFile2 = FileChooser.chooseFile();
+    		inputFile1 = FileChooser.chooseFile("");
+    		inputFile2 = FileChooser.chooseFile(inputFile2.getAbsolutePath());
 
     	}
     	

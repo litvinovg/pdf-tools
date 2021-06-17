@@ -35,7 +35,7 @@ public class splitOutline {
       	inputFile1 = new File(inputFileName1);	
    
     	} else {
-    		inputFile1 = FileChooser.chooseFile();
+    		inputFile1 = FileChooser.chooseFile("");
 
     	}
     	
