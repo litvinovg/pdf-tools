@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfImportedPage;
@@ -36,9 +35,8 @@ public class collation {
       	inputFile1 = new File(inputFileName1);	
       	inputFile2 = new File(inputFileName2);
     	} else {
-    		inputFile1 = FileChooser.chooseFile();
-    		inputFile2 = FileChooser.chooseFile();
-
+    		inputFile1 = FileChooser.chooseFile("");
+    		inputFile2 = FileChooser.chooseFile(inputFile1.getAbsolutePath());
     	}
     	
     	if (inputFile1 == null || !inputFile1.exists()){
@@ -61,48 +59,66 @@ public class collation {
     	
         PdfReader reader1 = new PdfReader(inputStream1);
         PdfReader reader2 = new PdfReader(inputStream2);
-        Rectangle pageDoc1 = reader1.getPageSize(1);
-        Rectangle pageDoc2 = reader2.getPageSize(1);
-        float newWidth;
-        float newHeight;
-        
-        if (pageDoc1.getWidth() > pageDoc2.getWidth()) {
-        	newWidth = pageDoc1.getWidth();
-        } else {
-        	newWidth = pageDoc2.getWidth();
-        }
-        if (pageDoc1.getHeight() > pageDoc2.getHeight()) {
-        	newHeight = pageDoc1.getHeight();
-        } else {
-        	newHeight = pageDoc2.getHeight();
-        }
-        Rectangle newPageSize = new Rectangle(newWidth, newHeight );
+        Rectangle newPageSize = getNewPageSize(reader1, reader2,1);
         Document document = new Document(newPageSize);
-
-        Rectangle pagesize = document.getPageSize();
-        
+      
         PdfWriter writer = PdfWriter.getInstance(document, outputStream);
         document.open();
         PdfContentByte canvas = writer.getDirectContent();
-        PdfImportedPage page1doc = writer.getImportedPage(reader1, 1);
         PdfImportedPage page2doc;
-        for (int i = 1; i <= reader1.getNumberOfPages() || i <= reader2.getNumberOfPages() ; i++ ) {
+        for (int i = 1; isPageInAnyDoc(reader1, reader2, i) ; i++ ) {
 
   				//canvas.addTemplate(page1doc, 1f, 0, 0, 1f, deltaWLayout ,deltaHLayout );
-  				if (i <= reader1.getNumberOfPages()) {
-          	page1doc = writer.getImportedPage(reader1, i);
-  					canvas.addTemplate(page1doc, 1f, 0, 0, 1f, 0 ,0 );	
+          PdfImportedPage pdfImportedPage = writer.getImportedPage(reader1, i);
+          
+          
+  				if (isPageInDoc(reader1, i)) {
+          	pdfImportedPage = writer.getImportedPage(reader1, i);
+  					canvas.addTemplate(pdfImportedPage, 1f, 0, 0, 1f, 0 ,0 );	
   				}
-  				if (i <= reader2.getNumberOfPages()) {
+  				if (isPageInDoc(reader2, i)) {
           	page2doc = writer.getImportedPage(reader2, i);
   					canvas.addTemplate(page2doc, 1f, 0, 0, 1f, 0 ,0 );	
   				}
-  				
-					document.newPage();
+  				if (i+1<=reader1.getNumberOfPages()|| isPageInDoc(reader2, i) ) {
+  					newPageSize = getNewPageSize(reader1, reader2,i+1);
+            document.setPageSize(newPageSize);
+  					document.newPage();	
+  				}
         }
 			  // step 5
         document.close();
         reader1.close();
     }
+
+		private static boolean isPageInAnyDoc(PdfReader reader1, PdfReader reader2, int i) {
+			return isPageInDoc(reader1, i) || isPageInDoc(reader2, i);
+		}
+
+		private static Rectangle getNewPageSize(PdfReader reader1, PdfReader reader2,int i) {
+			float newWidth1 = 0.0f;
+			float newHeight1 = 0.0f;
+			float newWidth2 = 0.0f;
+			float newHeight2 = 0.0f;
+			if (isPageInDoc(reader1, i)) {
+				Rectangle pageDoc1 = reader1.getPageSize(i);	
+				newWidth1 = pageDoc1.getWidth();
+				newHeight1 = pageDoc1.getHeight();
+			}
+			if (isPageInDoc(reader2, i)) {
+				Rectangle pageDoc2 = reader2.getPageSize(i);
+				newWidth2 = pageDoc2.getWidth();
+				newHeight2 = pageDoc2.getHeight();
+			}
+			float newWidth = Math.max(newWidth1, newWidth2);
+			float newHeight = Math.max(newHeight1, newHeight2);
+			
+			Rectangle newPageSize = new Rectangle(newWidth, newHeight );
+			return newPageSize;
+		}
+
+		private static boolean isPageInDoc(PdfReader reader1, int i) {
+			return i<=reader1.getNumberOfPages();
+		}
 }
  
